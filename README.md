@@ -1,3 +1,6 @@
+# Examination-system
+1. React  2. Redux 3. ReRedux-toolkit 5. Antd组件库 6. Typescript 7. Tailwind Css 8. Css Module 9
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), using the [Redux](https://redux.js.org/) and [Redux Toolkit](https://redux-toolkit.js.org/) TS template.
