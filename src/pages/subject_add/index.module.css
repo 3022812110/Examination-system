@@ -1,51 +1,36 @@
-/* .wrap {
-    height: calc(100vh - 150px);
-    background-color: pink;
-    display: flex;
-    flex-direction: column;
+/* .wrap{
+
 } */
 
-.top {
-    height: 50px;
-    background-color: rgb(222, 222, 222);
+.content{
     display: flex;
-
+    height: calc(100vh - 25vh);
+    /* flex-direction: row; */
+    /* justify-content: center; */
+}
+.right{
+    padding: 20px;
+    flex: 1;
+    background-color: antiquewhite;
+    overflow-y: auto;
 }
 
-.top .left {
-    line-height: 50px;
-    padding-left: 30px;
-    border-left: 5px solid blue;
-    min-width: 150px;
+.left{
+    padding: 20px;
+    flex: 1;
+    background-color: rgb(145, 139, 130);
+    overflow-y: auto;
 }
-
-.top .right {
-    line-height: 50px;
-    padding-left: 30px;
+.top{
     display: flex;
+    justify-content: space-between;
     align-items: center;
-}
-
-.add_button {
-    margin-left: 20px;
-}
-
-.content {
-    height: calc(100vh - 200px);
-    display: flex;
-    flex-grow: 1;
-}
-
-.content .left {
-    background: rgb(247, 247, 245);
-    flex: 1;
     padding: 20px;
-    overflow-y: auto;
+    /* background-color: rgb(145, 139, 130); */
+}
+.top div{
+    margin: auto 20px;
 }
 
-.content .right {
-    /* background-color: ; */
-    flex: 1;
-    padding: 20px;
-    overflow-y: auto;
-}
+
+

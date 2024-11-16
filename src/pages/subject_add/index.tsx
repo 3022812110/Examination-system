@@ -1,65 +1,98 @@
-import styles from './index.module.css';
-import { Button, TreeSelect } from 'antd';
-import { useEffect } from 'react';
-import { AppDispatch } from '@/store';
-import { useDispatch, useSelector } from 'react-redux';
-import { get_subject_tree_async, select_subject_tree, set_active_subject, select_active_subject, get_topic_list_async } from '@/store/slice/subject';
-import LeftContent from './leftContent';
-import RightContent from './rightContent';
+import styles from './index.module.css'
+import { TreeSelect, Button } from 'antd';
+import type { TreeSelectProps } from 'antd';
+import { useState } from 'react';
+import List from './list'
+import Detail from './detail'
 
-function SubjectAdd() {
-    const dispatch: AppDispatch = useDispatch();
-    const treeData = useSelector(select_subject_tree);
-    const active_subject: any = useSelector(select_active_subject);
+const treeData = [
+  {
+    value: 'parent 1',
+    title: 'parent 1',
+    children: [
+      {
+        value: 'parent 1-0',
+        title: 'parent 1-0',
+        children: [
+          {
+            value: 'leaf1',
+            title: 'leaf1',
+          },
+          {
+            value: 'leaf2',
+            title: 'leaf2',
+          },
+          {
+            value: 'leaf3',
+            title: 'leaf3',
+          },
+          {
+            value: 'leaf4',
+            title: 'leaf4',
+          },
+          {
+            value: 'leaf5',
+            title: 'leaf5',
+          },
+          {
+            value: 'leaf6',
+            title: 'leaf6',
+          },
+        ],
+      },
+      {
+        value: 'parent 1-1',
+        title: 'parent 1-1',
+        children: [
+          {
+            value: 'leaf11',
+            title: <b style={{ color: '#08c' }}>leaf11</b>,
+          },
+        ],
+      },
+    ],
+  },
+];
 
-    useEffect(() => {
-        // 获取课程树状结构
-        dispatch(get_subject_tree_async()).then((res) => {
-            const active_subject = res.payload[0].children[0];
-            dispatch(set_active_subject(active_subject));
-        });
-    }, []);
+export default function SubjectAdd() {
 
-    useEffect(() => {
-        dispatch(get_topic_list_async(active_subject.value));
-    }, [active_subject.value]);
+  const [value, setValue] = useState<string>();
 
-    const onChange = (newValue: string, nameArr: any) => {
-        dispatch(set_active_subject({
-            title: nameArr[0],
-            value: newValue
-        }));
-    };
+  const onChange = (newValue: string) => {
+    setValue(newValue);
+  };
 
-    return (
-        <div className={styles.wrap}>
-            <div className={styles.top}>
-                <div className={styles.left}>
-                    {active_subject.title}
-                </div>
-                <div className={styles.right}>
-                    <TreeSelect
-                        style={{ width: '100%', minWidth: 200 }}
-                        value={active_subject.value}
-                        dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
-                        treeData={treeData}
-                        placeholder="Please select"
-                        treeDefaultExpandAll
-                        onChange={onChange}
-                    />
-                    <Button type='primary' className={styles.add_button}>新增题目</Button>
-                </div>
-            </div>
-            <div className={styles.content}>
-                <div className={styles.left}>
-                    <LeftContent />
-                </div>
-                <div className={styles.right}>
-                    <RightContent />
-                </div>
-            </div>
+  const onPopupScroll: TreeSelectProps['onPopupScroll'] = (e) => {
+    console.log('onPopupScroll', e);
+  };
+  return (
+    <div className={styles.wrap}>
+      <div className={styles.top}>
+        <div>
+          title
         </div>
-    );
-}
+        <TreeSelect
+          showSearch
+          style={{ width: '100%' }}
+          value={value}
+          dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
+          placeholder="Please select"
+          allowClear
+          treeDefaultExpandAll
+          onChange={onChange}
+          treeData={treeData}
+          onPopupScroll={onPopupScroll}
+        />
+        <Button type="primary">Primary Button</Button>
 
-export default SubjectAdd;
+
+      </div>
+      <div className={styles.content}>
+        <div className={styles.right}><List /></div>
+        <div className={styles.left}><Detail /></div>
+
+      </div>
+
+    </div>
+  )
+}

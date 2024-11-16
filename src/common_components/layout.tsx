@@ -1,25 +1,30 @@
 import { Outlet } from "react-router-dom";
 import Header from "./header";
-import Nav from "./menu";
-import useIsShowMenu from "@/hooks/useIsShowMenu";
 import useIsShowHeader from "@/hooks/useIsShowHeader";
+import useIsShowMenu from "@/hooks/useIsShowMenu";
+import Menu from "./menu";
+
+
 
 function Layout() {
 
-    const is_show_menu = useIsShowMenu();
-    const is_show_header = useIsShowHeader();
+    const is_show_header = useIsShowHeader()
+    const is_show_menu = useIsShowMenu()
+
+
     return (
         <div className="layout">
-            {is_show_header? (
+            {is_show_header ?
                 <div className="header_wrap">
-                <Header />
-            </div>) :null
+                    <Header />
+                </div>
+                : null
             }
-            
-            {is_show_menu ? (
+            {is_show_menu ?
                 <div className="nav_wrap">
-                    <Nav />
-                </div>) : null
+                    <Menu />
+                </div>
+                : null
             }
             <div className="outlet_wrap">
                 <Outlet />
